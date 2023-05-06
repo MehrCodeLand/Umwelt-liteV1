@@ -1,6 +1,51 @@
 ﻿
 @{
+    Layout = null;
 
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/AdminPages/AdminMain.css">
+    <title>Admin-Main</title>
+</head>
+<body>
 
+    <div class="header-div">
+        <div class="h-left">
+            <p class="title">Umwelt-Admin</p>
+        </div>
+        <div class="h-right">
+            <p class="username">Mehrshad</p>
+        </div>
+    </div>
+
+
+    <div class="main-div">
+        <div class="buttons">
+            <form  class="form-main-page" method="post">
+                <button type="submit" class="main-web-page">Main Page</button>
+            </form>
+            <form asp-area="Admin" asp-controller="Admin" asp-action="CreateArticle" class="form-main-page" method="post">
+                <button type="submit" class="create-article">Create Article</button>
+            </form>
+            <form class="form-main-page" method="post">
+                <button type="submit" class="manage-articles">Manage Articles</button>
+            </form>
+            <form class="form-main-page" method="post">
+                <button type="submit" class="manfe-admins">Magnage Admin</button>
+            </form>
+            <form class="form-main-page" method="post">
+                <button type="submit" class="manfe-admins">Create Category</button>
+            </form>
+            <form class="form-main-page" method="post">
+                <button type="submit" class="manfe-admins">Manage Category</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

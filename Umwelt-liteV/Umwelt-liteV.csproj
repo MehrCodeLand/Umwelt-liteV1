@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Main\Controllers\" />
     <Folder Include="Areas\Main\Views\" />
   </ItemGroup>
 
