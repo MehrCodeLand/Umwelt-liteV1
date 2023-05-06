@@ -1,0 +1,4 @@
+﻿
+
+
+List<Article> articles = _db.Articles.Include(u => u.Category).toList();

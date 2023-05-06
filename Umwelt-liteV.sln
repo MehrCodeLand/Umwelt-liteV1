@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32804.467
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umwelt-liteV", "Umwelt-liteV\Umwelt-liteV.csproj", "{1F2792F6-065B-4088-A83D-B1945D566833}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F2792F6-065B-4088-A83D-B1945D566833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2792F6-065B-4088-A83D-B1945D566833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F2792F6-065B-4088-A83D-B1945D566833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F2792F6-065B-4088-A83D-B1945D566833}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03DB3899-8BEC-4939-92AA-0486EBB8AF3B}
+	EndGlobalSection
+EndGlobal
