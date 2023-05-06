@@ -14,6 +14,8 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         }
         public IActionResult Main() => View();
 
+
+
         [HttpGet]
         [Route("CreateArticle")]
         public IActionResult CreateArticle()
@@ -34,7 +36,9 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         public IActionResult CreateArticle(CreateArticleVm createArticle)
         {
 
-            return View();
+            var message = _admin.AddArticle(createArticle);
+
+            return RedirectToAction("Main");
         }
 
 
@@ -45,7 +49,7 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         [Route("CreateCategory")]
         public IActionResult CreateCategory(CreateCategoryVm categoryVm )
         {
-            var message = _admin.ValidateCategory(categoryVm);
+            var message = _admin.AddCategory(categoryVm);
             if(message.ErrorId < 0)
             {
                 TempData["error"] = message.Message.ToString();

@@ -7,6 +7,7 @@ namespace Umwelt_liteV.Core.Services
     public interface IAdminService
     {
         IList<Category> GetCategories();
-        MessageData ValidateCategory(CreateCategoryVm categoryVm);
+        MessageData AddCategory(CreateCategoryVm createCategoryVm);
+        MessageData AddArticle(CreateArticleVm articleVm);
     }
 }
