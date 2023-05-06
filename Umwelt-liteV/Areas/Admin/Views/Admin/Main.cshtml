@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/AdminPages/AdminMain.css">
+    <link href="~/js/sweettoast/swal.css" rel="stylesheet" />
     <title>Admin-Main</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
             <form  class="form-main-page" method="post">
                 <button type="submit" class="main-web-page">Main Page</button>
             </form>
-            <form asp-area="Admin" asp-controller="Admin" asp-action="CreateArticle" class="form-main-page" method="post">
+            <form asp-area="Admin" asp-controller="Admin" asp-action="CreateArticle" class="form-main-page" method="get">
                 <button type="submit" class="create-article">Create Article</button>
             </form>
             <form class="form-main-page" method="post">
@@ -39,7 +40,7 @@
             <form class="form-main-page" method="post">
                 <button type="submit" class="manfe-admins">Magnage Admin</button>
             </form>
-            <form class="form-main-page" method="post">
+            <form asp-area="Admin" asp-controller="Admin" asp-action="CreateCategory" class="form-main-page" method="get">
                 <button type="submit" class="manfe-admins">Create Category</button>
             </form>
             <form class="form-main-page" method="post">
@@ -47,5 +48,19 @@
             </form>
         </div>
     </div>
+
+
+
+    <!-- Sweet Alert Section -->
+    <div>
+        <input type="hidden" id="message1" value="@TempData["success"]" />
+        <input type="hidden" id="message2" value="@TempData["error"]" />
+        <input type="hidden" id="message3" value="@TempData["warning"]" />
+        <input type="hidden" id="message4" value="@TempData["info"]" />
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <partial name="_SideMessage" />
+
 </body>
 </html>

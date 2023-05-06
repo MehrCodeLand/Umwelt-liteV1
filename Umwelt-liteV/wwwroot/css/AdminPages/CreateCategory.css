@@ -1,0 +1,77 @@
+body {
+    margin: 0px ;
+    padding: 0px ;
+    background-color: #bfccb5;
+}
+.header-div {
+    margin: 0px ;
+    padding: 3rem 1rem ;
+    display: flex;
+    flex-direction: row;
+    background-color: #7c96ab ;
+}
+.h-left{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex: 1 ;
+}
+.title {
+    padding: 0px ;
+    margin: 0px ;
+    font-family: monospace;
+    font-size: 1.2rem ;
+    color: #edc6b1 ;
+}
+.h-right{
+    flex: 1 ;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.username{
+    padding: 0px ;
+    margin: 0px ;
+    font-family: monospace;
+    font-size: 1.2rem ;
+    color: #edc6b1 ;
+}
+
+.main-div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem ;
+    align-items: center;
+}
+.div-form {
+    border-radius: 0.3rem ;
+    display: flex;
+    flex-direction: column;
+    background-color: #7c96ab;
+    width: 60% ;
+    justify-content: center;
+    align-items:center;
+    font-family: monospace;
+    padding: 1rem ;
+}
+.title {
+    font-family: monospace;
+    font-size: 0.8rem ;
+    padding: 0.5rem 0.9rem ;
+    border: none;
+    border-radius: 0.2rem; 
+}
+.submit-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.submit-btn {
+    background-color: #edc6b1;
+    color: #7c96ab;
+    font-family: monospace;
+    padding: 0.5rem 0.7rem ;
+    border: none;
+    border-radius: 0.2rem ;
+    margin-top: 0.4rem ;
+}

@@ -36,5 +36,24 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
 
             return View();
         }
+
+
+        [HttpGet]
+        [Route("CreateCategory")]
+        public IActionResult CreateCategory() => View();
+        [HttpPost]
+        [Route("CreateCategory")]
+        public IActionResult CreateCategory(CreateCategoryVm categoryVm )
+        {
+            var message = _admin.ValidateCategory(categoryVm);
+            if(message.ErrorId < 0)
+            {
+                TempData["error"] = message.Message.ToString();
+                return RedirectToAction("Main");
+            }
+
+            TempData["success"] = message.Message.ToString();
+            return RedirectToAction("Main");
+        }
     }
 }

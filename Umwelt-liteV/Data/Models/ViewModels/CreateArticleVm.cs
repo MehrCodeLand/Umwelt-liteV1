@@ -11,6 +11,5 @@ namespace Umwelt_liteV.Data.Models.ViewModels
         public string ImageTitle { get; set; }
         public int CategoryID { get; set; }
         public IList<Category> Categories { get; set; }
-        public Category Category { get; set; }
     }
 }
