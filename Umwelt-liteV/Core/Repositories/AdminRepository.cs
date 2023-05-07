@@ -114,20 +114,49 @@ namespace Umwelt_liteV.Core.Repositories
 
             message = ValidateCreateArticle(articleVm);
             if(message.ErrorId < 0 ) { return message; }
-            
-            // time to save data 
+
+            // time to save data
+
+            var fileNameNew = CreateRandomName.CreateName();
+
             var article = new Article()
             {
                 MyArticleId = CreateRandomId.CreateId(),
                 Title = articleVm.Title.ToLower(),
                 ShortDescriptions = articleVm.ShortDiscription,
                 Descriptions = articleVm.Discrioption,
-                ImageName = articleVm.Title.ToLower(),
+                ImageName = fileNameNew,
                 CategoryId = articleVm.CategoryID,
             };
 
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/articleData/image", article.ImageName);
+            var result = SaveImageArticle(articleVm.ImageFile , fileNameNew);
+            if (!result)
+            {
+                message.ErrorId = -300;
+                message.Message = "We Can Save Image!";
 
+                return message;
+            }
+
+            // time to save our models
+            _db.Articles.Add(article);
+            Save();
+
+            // teas  was add or not
+            result = IsArticleAdded(article.MyArticleId);
+            if (!result)
+            {
+                message.ErrorId = -510;
+                message.Message = "somthings wrong,we cant\n" +
+                    " add Article now";
+
+                return message;
+            }
+
+
+            message.SuccessId = 450;
+            message.Message = "Aericle Was Added\n" +
+                "Stay Greeen";
             return message;
         }
         private MessageData ValidateCreateArticle(CreateArticleVm articleVm)
@@ -163,7 +192,7 @@ namespace Umwelt_liteV.Core.Repositories
 
 
             if((articleVm.ShortDiscription == null) || (articleVm.ShortDiscription.Length < 15) || 
-                (articleVm.ShortDiscription.Length > 25 ))
+                (articleVm.ShortDiscription.Length > 50 ))
             {
                 message.ErrorId = -140;
                 message.Message = "Short description has not correct\n" +
@@ -228,6 +257,25 @@ namespace Umwelt_liteV.Core.Repositories
         private bool IsCategoryExist( int catId)
         {
             return _db.Categories.Any(u => u.CategoryId == catId);
+        }
+        private bool SaveImageArticle( IFormFile articleImg , string fileNewName)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/articleData/image");
+            if (!Directory.Exists(path)) { return false; }
+
+            var fileInfp = new FileInfo(articleImg.FileName);
+            fileNewName += fileInfp.Extension;
+            string fileNameWithPath = Path.Combine(path, fileNewName);
+            using(var stram = new FileStream(fileNameWithPath, FileMode.Create))
+            {
+                articleImg.CopyTo(stram);
+            }
+
+            return true;
+        }
+        private bool IsArticleAdded(int myArticleId)
+        {
+            return _db.Articles.Any(u => u.MyArticleId == myArticleId);
         }
 
         #endregion

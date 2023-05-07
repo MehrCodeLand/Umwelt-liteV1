@@ -37,7 +37,13 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         {
 
             var message = _admin.AddArticle(createArticle);
+            if(message.ErrorId < 0)
+            {
+                TempData["error"] = message.Message.ToString();
+                return RedirectToAction("Main");
+            }
 
+            TempData["success"] = message.Message.ToString();
             return RedirectToAction("Main");
         }
 
@@ -59,5 +65,15 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
             TempData["success"] = message.Message.ToString();
             return RedirectToAction("Main");
         }
+
+
+        [Route("Articles")]
+        [HttpGet]
+        public IActionResult ManageAllArticles()
+        {
+
+            return View();
+        }
+
     }
 }
