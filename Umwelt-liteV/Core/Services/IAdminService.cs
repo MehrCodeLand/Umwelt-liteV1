@@ -9,5 +9,6 @@ namespace Umwelt_liteV.Core.Services
         IList<Category> GetCategories();
         MessageData AddCategory(CreateCategoryVm createCategoryVm);
         MessageData AddArticle(CreateArticleVm articleVm);
+
     }
 }

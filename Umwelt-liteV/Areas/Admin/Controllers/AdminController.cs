@@ -67,13 +67,5 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         }
 
 
-        [Route("Articles")]
-        [HttpGet]
-        public IActionResult ManageAllArticles()
-        {
-
-            return View();
-        }
-
     }
 }
