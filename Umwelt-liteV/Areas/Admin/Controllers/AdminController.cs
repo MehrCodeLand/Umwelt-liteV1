@@ -66,6 +66,10 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
             return RedirectToAction("Main");
         }
 
-
+        public IActionResult ArticleList(int pageId)
+        {
+            var articleList = _admin.GetAllUserForAdmin(pageId);
+            return View();
+        }
     }
 }

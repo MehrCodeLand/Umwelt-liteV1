@@ -9,6 +9,6 @@ namespace Umwelt_liteV.Core.Services
         IList<Category> GetCategories();
         MessageData AddCategory(CreateCategoryVm createCategoryVm);
         MessageData AddArticle(CreateArticleVm articleVm);
-
+        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex);
     }
 }

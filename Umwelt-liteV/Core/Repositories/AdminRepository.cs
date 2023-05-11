@@ -291,5 +291,39 @@ namespace Umwelt_liteV.Core.Repositories
         #endregion
 
 
+
+        #region Show Article And Edit
+
+        // ArticleListVm --> Our Data Article
+        // BaseFilterVm --> Pagging and Articles
+        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex)
+        {
+            var articleList = _db.Articles.OrderByDescending(u => u.Created).ToList();
+            var take = 10;
+            var howManyPageShow = 2;
+            var pager = PagingHelper.Pager(pageIndex, articleList.Count, take, howManyPageShow);
+
+            var result = articleList.Select(x => new ArticleListVm
+            {
+                MyArticleId = x.MyArticleId,
+                Title = x.Title,
+                ImageName = x.ImageName,
+                DateCreated = x.Created.ToString(),
+            }).ToList();
+
+            var outPut = PagingHelper.Pagination<ArticleListVm>(result, pager);
+
+            var baseFilterVm = new BaseFilterVm<ArticleListVm>()
+            {
+                EndPage = pager.EndPage,
+                Entities = outPut,
+                PageCount = pager.PageCount,
+                StartPage = pager.StartPage,
+            };
+
+            return baseFilterVm;
+        }
+
+        #endregion
     }
 }
