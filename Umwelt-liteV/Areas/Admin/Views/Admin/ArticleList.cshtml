@@ -1,15 +1,63 @@
-﻿
+﻿@using Umwelt_liteV.Data.Models.ViewModels
+@model BaseFilterVm<ArticleListVm>
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ArticleList</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/AdminPages/articlesList.css">
+    <title>Articles</title>
 </head>
 <body>
+
+
+    <div class="header-div">
+        <div class="h-left">
+            <p class="title">Umwelt-Admin</p>
+        </div>
+        <div class="h-right">
+            <p class="username">Mehrshad</p>
+        </div>
+    </div>
+
+    <div class="main-div">
+        <div class="card">
+            <div class="card-head">
+                <form method="get">
+                    <input hidden value="">
+                    <div class="search-div">
+                        <label>
+                            Search:
+                            <input type="search" class="search-input">
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <table class="my-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Image</th>
+                            <th>Fuck</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        body in back
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer">
+                footer
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
