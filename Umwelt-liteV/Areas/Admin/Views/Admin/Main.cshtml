@@ -34,7 +34,7 @@
             <form asp-area="Admin" asp-controller="Admin" asp-action="CreateArticle" class="form-main-page" method="get">
                 <button type="submit" class="create-article">Create Article</button>
             </form>
-            <form class="form-main-page" method="post">
+            <form asp-area="Admin" asp-controller="Admin" asp-action="ArticleList" class="form-main-page" method="post">
                 <button type="submit" class="manage-articles">Manage Articles</button>
             </form>
             <form class="form-main-page" method="post">

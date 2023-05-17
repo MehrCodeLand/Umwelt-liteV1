@@ -66,10 +66,11 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
             return RedirectToAction("Main");
         }
 
-        public IActionResult ArticleList(int pageId)
+        public IActionResult ArticleList(int pageId = 1 , string search = "")
         {
-            var articleList = _admin.GetAllUserForAdmin(pageId);
-            return View();
+            // we need manage paggination
+            var articleList = _admin.GetAllUserForAdmin(pageId );
+            return View(articleList);
         }
     }
 }
