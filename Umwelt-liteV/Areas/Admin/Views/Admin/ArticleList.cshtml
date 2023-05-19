@@ -28,8 +28,8 @@
     <div class="main-div">
         <div class="card">
             <div class="card-head">
-                <form method="get" asp-action="ArticleList">
-                    <input hidden value="@Model.PageIndex">
+                <form method="get" asp-action="ArticleList" id="formFilter">
+                    <input hidden value="@Model.PageIndex" id="pageId">
                     <div class="search-div">
                         <label>
                             Search:
@@ -75,10 +75,48 @@
             </div>
 
             <div class="card-footer">
-                footer
+                @if(Model.PageCount > 1 )
+                {
+                    <nav aria-label="Page navigation example">
+                        <ul>
+                            @if(Model.PageIndex > Model.StartPage)
+                            {
+                                <li>
+                                    <a href="">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
+                                </li>
+                            }
+                            @for(int i = Model.StartPage ; i <= Model.EndPage; ++i  )
+                            {
+                                <li>
+                                    <a class="page-link paginations @(Model.PageIndex == i ? "active" : "")" href="javascript:;">@i</a>
+                                </li>
+                            }
+                            @if(Model.PageIndex < Model.EndPage)
+                            {
+                                <li>
+                                    <a>
+                                        <span aria-hidden="true">»</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                }
             </div>
         </div>
     </div>
-
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                $(".paginations").click(function () {
+                    $("#pageId").val($(this).text());
+                    $("#formFilter").submit();
+                })
+            }
+            )
+        </script>
+    }
 </body>
 </html>
