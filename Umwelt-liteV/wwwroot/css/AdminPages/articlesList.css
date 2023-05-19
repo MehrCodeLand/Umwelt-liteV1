@@ -60,3 +60,8 @@ th {
     padding: 0.4rem ;
 }
 
+img {
+    height: 100px ;
+    width: 100px ;
+    border-radius: 0.5rem ;
+}

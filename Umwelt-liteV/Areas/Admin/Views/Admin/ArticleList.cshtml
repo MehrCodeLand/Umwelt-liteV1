@@ -28,12 +28,12 @@
     <div class="main-div">
         <div class="card">
             <div class="card-head">
-                <form method="get">
-                    <input hidden value="">
+                <form method="get" asp-action="ArticleList">
+                    <input hidden value="@Model.PageIndex">
                     <div class="search-div">
                         <label>
                             Search:
-                            <input type="search" class="search-input">
+                            <input name="search" type="search" class="search-input">
                         </label>
                     </div>
                 </form>
@@ -48,7 +48,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        body in back
+                        @{
+                            int counter = 1;
+                        }
+
+                        @foreach(var item in Model.Entities)
+                        {
+                            <tr>
+                                <th scope="row">@counter</th>
+                                <td><img src="/img/articleData/image/@item.ImageName"></td>
+                                <td>@item.Title</td>
+                                <td>@item.DateCreated</td>
+                                <td>
+                                    <a href="" class="">
+                                        Edit
+                                    </a>
+                                    <a href="" class="">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            counter++;
+                        }
                     </tbody>
                 </table>
             </div>

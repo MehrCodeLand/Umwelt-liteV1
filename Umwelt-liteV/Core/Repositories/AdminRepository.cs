@@ -126,11 +126,11 @@ namespace Umwelt_liteV.Core.Repositories
                 Title = articleVm.Title.ToLower(),
                 ShortDescriptions = articleVm.ShortDiscription,
                 Descriptions = articleVm.Discrioption,
-                ImageName = fileNameNew,
+                ImageName = fileNameNew + articleVm.ImageFile.FileName ,
                 CategoryId = articleVm.CategoryID,
             };
 
-            var result = SaveImageArticle(articleVm.ImageFile , fileNameNew);
+            var result = SaveImageArticle(articleVm.ImageFile , article.ImageName);
             if (!result)
             {
                 message.ErrorId = -300;
@@ -252,6 +252,7 @@ namespace Umwelt_liteV.Core.Repositories
 
             if(fileContentType == "image/png") { return true; }
             else if(fileContentType == "image/jpg") { return true; }
+            else if(fileContentType == "image/jpeg") { return true; }
 
             return false;
         }
@@ -265,7 +266,6 @@ namespace Umwelt_liteV.Core.Repositories
             if (!Directory.Exists(path)) { return false; }
 
             var fileInfp = new FileInfo(articleImg.FileName);
-            fileNewName += fileInfp.Extension;
             string fileNameWithPath = Path.Combine(path, fileNewName);
             using(var stram = new FileStream(fileNameWithPath, FileMode.Create))
             {
@@ -296,13 +296,19 @@ namespace Umwelt_liteV.Core.Repositories
 
         // ArticleListVm --> Our Data Article
         // BaseFilterVm --> Pagging and Articles
-        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex)
+        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex , string ItemSearch)
         {
+            // get all articles
             var articleList = _db.Articles.OrderByDescending(u => u.Created).ToList();
+
             var take = 10;
             var howManyPageShow = 2;
+
+            // set all data and info 
+            // for pagging
             var pager = PagingHelper.Pager(pageIndex, articleList.Count, take, howManyPageShow);
 
+            // interesting part
             var result = articleList.Select(x => new ArticleListVm
             {
                 MyArticleId = x.MyArticleId,
@@ -310,6 +316,7 @@ namespace Umwelt_liteV.Core.Repositories
                 ImageName = x.ImageName,
                 DateCreated = x.Created.ToString(),
             }).ToList();
+            
 
             var outPut = PagingHelper.Pagination<ArticleListVm>(result, pager);
 
@@ -319,10 +326,12 @@ namespace Umwelt_liteV.Core.Repositories
                 Entities = outPut,
                 PageCount = pager.PageCount,
                 StartPage = pager.StartPage,
+                PageIndex = pageIndex,
             };
 
             return baseFilterVm;
         }
+
 
         #endregion
     }

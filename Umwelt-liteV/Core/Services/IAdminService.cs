@@ -1,4 +1,5 @@
 ﻿using Umwelt_liteV.Data.Models.Entities;
+using Umwelt_liteV.Data.Models.Helper;
 using Umwelt_liteV.Data.Models.Structs;
 using Umwelt_liteV.Data.Models.ViewModels;
 
@@ -9,6 +10,6 @@ namespace Umwelt_liteV.Core.Services
         IList<Category> GetCategories();
         MessageData AddCategory(CreateCategoryVm createCategoryVm);
         MessageData AddArticle(CreateArticleVm articleVm);
-        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex);
+        BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex, string itemSearch);
     }
 }

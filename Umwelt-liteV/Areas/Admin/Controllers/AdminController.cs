@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Umwelt_liteV.Core.Services;
+using Umwelt_liteV.Data.Models.Helper;
 using Umwelt_liteV.Data.Models.ViewModels;
 
 namespace Umwelt_liteV.Areas.Admin.Controllers
@@ -69,7 +70,7 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         public IActionResult ArticleList(int pageId = 1 , string search = "")
         {
             // we need manage paggination
-            var articleList = _admin.GetAllUserForAdmin(pageId );
+            var articleList = _admin.GetAllUserForAdmin(pageId , search);
             return View(articleList);
         }
     }
