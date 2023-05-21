@@ -25,6 +25,7 @@
         </div>
     </div>
 
+
     <div class="main-div">
         <div class="card">
             <div class="card-head">
@@ -60,7 +61,7 @@
                                 <td>@item.Title</td>
                                 <td>@item.DateCreated</td>
                                 <td>
-                                    <a href="" class="">
+                                    <a asp-area="Admin" asp-controller="Admin" asp-action="EditArticle" asp-route-id="@item.MyArticleId" class="">
                                         Edit
                                     </a>
                                     <a href="" class="">

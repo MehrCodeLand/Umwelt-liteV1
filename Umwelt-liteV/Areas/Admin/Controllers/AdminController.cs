@@ -9,7 +9,7 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService _admin;
-        public AdminController( IAdminService admin )
+        public AdminController(IAdminService admin)
         {
             _admin = admin;
         }
@@ -24,7 +24,7 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
             var createArticle = new CreateArticleVm();
 
             createArticle.Categories = _admin.GetCategories();
-            if(createArticle.Categories == null || createArticle.Categories.Count == 0)
+            if (createArticle.Categories == null || createArticle.Categories.Count == 0)
             {
                 return RedirectToAction("Main");
             }
@@ -38,7 +38,7 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         {
 
             var message = _admin.AddArticle(createArticle);
-            if(message.ErrorId < 0)
+            if (message.ErrorId < 0)
             {
                 TempData["error"] = message.Message.ToString();
                 return RedirectToAction("Main");
@@ -54,10 +54,10 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         public IActionResult CreateCategory() => View();
         [HttpPost]
         [Route("CreateCategory")]
-        public IActionResult CreateCategory(CreateCategoryVm categoryVm )
+        public IActionResult CreateCategory(CreateCategoryVm categoryVm)
         {
             var message = _admin.AddCategory(categoryVm);
-            if(message.ErrorId < 0)
+            if (message.ErrorId < 0)
             {
                 TempData["error"] = message.Message.ToString();
                 return RedirectToAction("Main");
@@ -67,11 +67,24 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
             return RedirectToAction("Main");
         }
 
-        public IActionResult ArticleList(int pageId = 1 , string search = "")
+        public IActionResult ArticleList(int pageId = 1, string search = "")
         {
             // we need manage paggination
-            var articleList = _admin.GetAllUserForAdmin(pageId , search);
+            var articleList = _admin.GetAllUserForAdmin(pageId, search);
             return View(articleList);
+        }
+
+
+        public IActionResult EditArticle(int myArticleId)
+        {
+            var editArticleVm = _admin.FindArticleByMyArticleId(myArticleId);
+            if(editArticleVm == null)
+            {
+                TempData["error"] = "We can do that right now";
+                return RedirectToAction("Main");
+            }
+
+            return View(editArticleVm);
         }
     }
 }

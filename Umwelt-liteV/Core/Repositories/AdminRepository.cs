@@ -290,8 +290,6 @@ namespace Umwelt_liteV.Core.Repositories
 
         #endregion
 
-
-
         #region Show Article And Edit
 
         // ArticleListVm --> Our Data Article
@@ -332,6 +330,25 @@ namespace Umwelt_liteV.Core.Repositories
             return baseFilterVm;
         }
 
+        public ArticleEditVm FindArticleByMyArticleId(int myArticleId)
+        {
+            var article = _db.Articles.FirstOrDefault(u => u.MyArticleId == myArticleId);
+
+            if (article == null)
+                return null;
+
+            var articleVm = new ArticleEditVm()
+            {
+                MyArticle = article.MyArticleId,
+                Title = article.Title,
+                ImageName = article.ImageName,
+                Description = article.Descriptions,
+                ShortDescription = article.ShortDescriptions,
+            };
+
+            return articleVm;
+
+        }
 
         #endregion
     }

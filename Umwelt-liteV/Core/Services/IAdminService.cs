@@ -11,5 +11,6 @@ namespace Umwelt_liteV.Core.Services
         MessageData AddCategory(CreateCategoryVm createCategoryVm);
         MessageData AddArticle(CreateArticleVm articleVm);
         BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex, string itemSearch);
+        ArticleEditVm FindArticleByMyArticleId(int myArticleId);
     }
 }
