@@ -7,5 +7,6 @@
         public string ImageName { get; set; }
         public string Description { get; set; }
         public string ShortDescription { get; set; }
+        public IFormFile AltImage { get; set; }
     }
 }

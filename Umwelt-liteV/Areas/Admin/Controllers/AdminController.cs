@@ -75,9 +75,10 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         }
 
 
-        public IActionResult EditArticle(int myArticleId)
+        [Route("EditArticle")]
+        public IActionResult EditArticle(int id)
         {
-            var editArticleVm = _admin.FindArticleByMyArticleId(myArticleId);
+            var editArticleVm = _admin.FindArticleByMyArticleId(id);
             if(editArticleVm == null)
             {
                 TempData["error"] = "We can do that right now";
@@ -86,5 +87,13 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
 
             return View(editArticleVm);
         }
+
+        [Route("EditArticle")]
+        [HttpPost]
+        public IActionResult EditArticle(ArticleEditVm articleEdit)
+        {
+            return View(articleEdit);
+        }
+
     }
 }

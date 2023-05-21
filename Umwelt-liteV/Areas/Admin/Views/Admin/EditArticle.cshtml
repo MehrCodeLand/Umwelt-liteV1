@@ -1,15 +1,52 @@
-﻿
+﻿@using Umwelt_liteV.Data.Models.ViewModels
+@model ArticleEditVm
+
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>EditArticle</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/AdminPages/EditArticle.css">
+    <title>Edit @Model.Title</title>
 </head>
 <body>
+    <div class="header-div">
+        <div class="h-left">
+            <p class="title">Umwelt-Admin</p>
+        </div>
+        <div class="h-right">
+            <p class="username">Mehrshad</p>
+        </div>
+    </div>
+
+
+    <div class="main-div">
+        <div class="form-div">
+            <div class="image-div">
+                <img src="/img/articleData/image/@Model.ImageName" class="article-img">
+            </div>
+            <div class="title-div">
+                <input asp-for="Title" class="title-article" value="@Model.Title">
+            </div>
+            <div class="image-change-div">
+                <input asp-for="AltImage" type="file" class="image-input">
+            </div>
+            <div class="description-div">
+                <textarea asp-for="Description" class="description" cols="30" rows="10">@Model.Description</textarea>
+            </div>
+            <div class="shortdes-div">
+                <textarea asp-for="ShortDescription" class="shortdes-area" cols="30" rows="5">@Model.ShortDescription</textarea>
+            </div>
+            <div class="submit-btn">
+                <button class="submit" type="submit">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
