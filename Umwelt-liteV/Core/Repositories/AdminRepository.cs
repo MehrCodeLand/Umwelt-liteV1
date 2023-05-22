@@ -350,6 +350,51 @@ namespace Umwelt_liteV.Core.Repositories
 
         }
 
+        public MessageData ArticleEdit(ArticleEditVm articleEdit)
+        {
+            var message = new MessageData();
+
+            message = ValidateEditArticle(articleEdit);
+            return message;
+        }
+
+        private MessageData ValidateEditArticle(ArticleEditVm articleEdit)
+        {
+            var message = new MessageData();
+
+            if(articleEdit == null)
+            {
+                message.ErrorId = -100;
+                message.Message = "The Data Is Not Found";
+
+                return message;
+            }
+            else if(articleEdit.ImageName == null)
+            {
+                message.ErrorId = -110;
+                message.Message = "Somthings Wrong";
+
+                return message;
+            }
+            else if(articleEdit.Description == null || articleEdit.Description.Length < 15)
+            {
+                message.ErrorId = -200;
+                message.Message = "The descriptions is to short";
+
+                return message;
+            }
+            else if(articleEdit.ShortDescription == null || articleEdit.ShortDescription.Length < 10)
+            {
+                message.ErrorId = -140;
+                message.Message = "The Short descriptions is to short";
+
+                return message;
+            }
+
+            // time to validate str 
+            return message;
+        }
+
         #endregion
     }
 }
