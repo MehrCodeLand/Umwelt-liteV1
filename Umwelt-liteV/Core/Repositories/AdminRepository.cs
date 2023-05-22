@@ -25,7 +25,7 @@ namespace Umwelt_liteV.Core.Repositories
             var message = new MessageData();
 
             message = ValidateCategory(createCategoryVm);
-            if(message.ErrorId < 0)
+            if (message.ErrorId < 0)
             {
                 return message;
             }
@@ -64,14 +64,14 @@ namespace Umwelt_liteV.Core.Repositories
         {
             var message = new MessageData();
 
-            if(categoryVm == null)
+            if (categoryVm == null)
             {
                 message.ErrorId = -50;
                 message.Message = "Data have problem";
 
                 return message;
             }
-            else if((categoryVm.Title == null ) || (categoryVm.Title.Length < 2))
+            else if ((categoryVm.Title == null) || (categoryVm.Title.Length < 2))
             {
                 message.ErrorId = -100;
                 message.Message = "Title is to short";
@@ -88,7 +88,7 @@ namespace Umwelt_liteV.Core.Repositories
                 return message;
             }
 
-            message.SuccessId = 100; 
+            message.SuccessId = 100;
             message.Message = "Done";
             return message;
         }
@@ -114,7 +114,7 @@ namespace Umwelt_liteV.Core.Repositories
             var message = new MessageData();
 
             message = ValidateCreateArticle(articleVm);
-            if(message.ErrorId < 0 ) { return message; }
+            if (message.ErrorId < 0) { return message; }
 
             // time to save data
 
@@ -126,11 +126,11 @@ namespace Umwelt_liteV.Core.Repositories
                 Title = articleVm.Title.ToLower(),
                 ShortDescriptions = articleVm.ShortDiscription,
                 Descriptions = articleVm.Discrioption,
-                ImageName = fileNameNew + articleVm.ImageFile.FileName ,
+                ImageName = fileNameNew + articleVm.ImageFile.FileName,
                 CategoryId = articleVm.CategoryID,
             };
 
-            var result = SaveImageArticle(articleVm.ImageFile , article.ImageName);
+            var result = SaveImageArticle(articleVm.ImageFile, article.ImageName);
             if (!result)
             {
                 message.ErrorId = -300;
@@ -172,7 +172,7 @@ namespace Umwelt_liteV.Core.Repositories
                 message.Message = "Data is not find.";
                 return message;
             }
-            else if ((articleVm.Title.Length < 2) ||(articleVm.Title == null) || (articleVm.Title.Length > 20))
+            else if ((articleVm.Title.Length < 2) || (articleVm.Title == null) || (articleVm.Title.Length > 20))
             {
                 message.ErrorId = -110;
                 message.Message = "Title is not correct structures";
@@ -192,37 +192,37 @@ namespace Umwelt_liteV.Core.Repositories
             articleVm.Title = articleVm.Title.Replace(" ", "");
 
 
-            if((articleVm.ShortDiscription == null) || (articleVm.ShortDiscription.Length < 15) || 
-                (articleVm.ShortDiscription.Length > 50 ))
+            if ((articleVm.ShortDiscription == null) || (articleVm.ShortDiscription.Length < 15) ||
+                (articleVm.ShortDiscription.Length > 50))
             {
                 message.ErrorId = -140;
                 message.Message = "Short description has not correct\n" +
                     " structures ";
 
                 return message;
-            } 
-            else if((articleVm.Discrioption == null ) || (articleVm.Discrioption.Length < 30 ))
+            }
+            else if ((articleVm.Discrioption == null) || (articleVm.Discrioption.Length < 30))
             {
                 message.ErrorId = -160;
                 message.Message = "Descriptions has incorrect structures ";
 
                 return message;
             }
-            else if(articleVm.Discrioption == null)
+            else if (articleVm.Discrioption == null)
             {
                 message.ErrorId = -175;
                 message.Message = "Fill Iamge";
 
                 return message;
             }
-            else if(articleVm.ImageFile == null || articleVm.ImageFile.Length > 2097152)
+            else if (articleVm.ImageFile == null || articleVm.ImageFile.Length > 2097152)
             {
                 message.ErrorId = -160;
                 message.Message = "thats large image";
 
                 return message;
             }
-            else if(!ValidateImageFormat(articleVm.ImageFile.ContentType))
+            else if (!ValidateImageFormat(articleVm.ImageFile.ContentType))
             {
                 message.ErrorId = -300;
                 message.Message = "incorect image format jpg or png need";
@@ -235,7 +235,7 @@ namespace Umwelt_liteV.Core.Repositories
 
                 return message;
             }
-            else if(articleVm.CategoryID.GetType() != typeof(int))
+            else if (articleVm.CategoryID.GetType() != typeof(int))
             {
                 message.ErrorId = -240;
                 message.Message = "we have some problem with cat id ";
@@ -246,28 +246,28 @@ namespace Umwelt_liteV.Core.Repositories
             message.SuccessId = 100;
             message.Message = "All is done";
             return message;
-        }        
+        }
         private bool ValidateImageFormat(string fileContentType)
         {
 
-            if(fileContentType == "image/png") { return true; }
-            else if(fileContentType == "image/jpg") { return true; }
-            else if(fileContentType == "image/jpeg") { return true; }
+            if (fileContentType == "image/png") { return true; }
+            else if (fileContentType == "image/jpg") { return true; }
+            else if (fileContentType == "image/jpeg") { return true; }
 
             return false;
         }
-        private bool IsCategoryExist( int catId)
+        private bool IsCategoryExist(int catId)
         {
             return _db.Categories.Any(u => u.CategoryId == catId);
         }
-        private bool SaveImageArticle( IFormFile articleImg , string fileNewName)
+        private bool SaveImageArticle(IFormFile articleImg, string fileNewName)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/articleData/image");
             if (!Directory.Exists(path)) { return false; }
 
             var fileInfp = new FileInfo(articleImg.FileName);
             string fileNameWithPath = Path.Combine(path, fileNewName);
-            using(var stram = new FileStream(fileNameWithPath, FileMode.Create))
+            using (var stram = new FileStream(fileNameWithPath, FileMode.Create))
             {
                 articleImg.CopyTo(stram);
             }
@@ -283,6 +283,11 @@ namespace Umwelt_liteV.Core.Repositories
 
         #region CRUD
 
+        private void UpdateArticle(Article article)
+        {
+            _db.Articles.Update(article);
+            Save();
+        }
         private void Save()
         {
             _db.SaveChanges();
@@ -294,7 +299,7 @@ namespace Umwelt_liteV.Core.Repositories
 
         // ArticleListVm --> Our Data Article
         // BaseFilterVm --> Pagging and Articles
-        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex , string ItemSearch)
+        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex, string ItemSearch)
         {
             // get all articles
             var articleList = _db.Articles.OrderByDescending(u => u.Created).ToList();
@@ -314,7 +319,7 @@ namespace Umwelt_liteV.Core.Repositories
                 ImageName = x.ImageName,
                 DateCreated = x.Created.ToString(),
             }).ToList();
-            
+
 
             var outPut = PagingHelper.Pagination<ArticleListVm>(result, pager);
 
@@ -355,6 +360,17 @@ namespace Umwelt_liteV.Core.Repositories
             var message = new MessageData();
 
             message = ValidateEditArticle(articleEdit);
+            if(message.ErrorId < 0 ) return message;
+
+
+            // ALT-IMAGE is change or not 
+
+
+
+            // time to update data
+            var article = _db.Articles.FirstOrDefault(u => u.MyArticleId == articleEdit.MyArticle);
+
+
             return message;
         }
 
@@ -362,39 +378,76 @@ namespace Umwelt_liteV.Core.Repositories
         {
             var message = new MessageData();
 
-            if(articleEdit == null)
+            if (articleEdit == null)
             {
                 message.ErrorId = -100;
                 message.Message = "The Data Is Not Found";
 
                 return message;
             }
-            else if(articleEdit.ImageName == null)
+            else if (articleEdit.ImageName == null)
             {
                 message.ErrorId = -110;
                 message.Message = "Somthings Wrong";
 
                 return message;
             }
-            else if(articleEdit.Description == null || articleEdit.Description.Length < 15)
+            else if (articleEdit.Description == null || articleEdit.Description.Length < 15)
             {
                 message.ErrorId = -200;
                 message.Message = "The descriptions is to short";
 
                 return message;
             }
-            else if(articleEdit.ShortDescription == null || articleEdit.ShortDescription.Length < 10)
+            else if (articleEdit.ShortDescription == null || articleEdit.ShortDescription.Length < 10)
             {
                 message.ErrorId = -140;
                 message.Message = "The Short descriptions is to short";
 
                 return message;
             }
+            else if(articleEdit.Title.Length < 3 || articleEdit.Title.Length > 15)
+            {
+                message.ErrorId = -310;
+                message.Message = "title is to short or to\n long";
+                return message;
+            }
 
-            // time to validate str 
+            var regex = new Regex("^[a-zA-Z]");
+            if (!regex.IsMatch(articleEdit.Title))
+            {
+                message.ErrorId = -300;
+                message.Message = "Title has incorrect format";
+
+                return message;
+            }
+            if(articleEdit.AltImage != null)
+            {
+                if(articleEdit.AltImage.Length < 2097152)
+                {
+                    message.ErrorId = -400;
+                    message.Message = "The alt image is to large";
+
+                    return message;
+                }
+            }
+
+
+
+            message.SuccessId = 100;
+            message.Message = "Done";
             return message;
         }
-
-        #endregion
     }
+
+    //var regex = new Regex("^[a-zA-Z]");
+    //        if (!regex.IsMatch(articleVm.Title))
+    //        {
+    //            message.ErrorId = -130;
+    //            message.Message = "Title has not number!";
+
+    //            return message;
+    //        }
+    #endregion
 }
+
