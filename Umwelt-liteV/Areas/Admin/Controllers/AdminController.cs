@@ -92,8 +92,19 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult EditArticle(ArticleEditVm articleEdit)
         {
-            // time to edit data
-            return View(articleEdit);
+            var message = _admin.ArticleEdit(articleEdit);
+
+            if (message.ErrorId < 0)
+            {
+                TempData["error"] = message.Message.ToString();
+
+                // find article again
+                var sendArticleAgain = _admin.FindArticleByMyArticleId(articleEdit.MyArticle);
+                return View(sendArticleAgain);
+            }
+
+            TempData["success"] = message.Message.ToString();
+            return RedirectToAction("Main");
         }
 
     }

@@ -26,27 +26,44 @@
 
     <div class="main-div">
         <div class="form-div">
-            <div class="image-div">
-                <img src="/img/articleData/image/@Model.ImageName" class="article-img">
-            </div>
-            <div class="title-div">
-                <input asp-for="Title" class="title-article" value="@Model.Title">
-            </div>
-            <div class="image-change-div">
-                <input asp-for="AltImage" type="file" class="image-input">
-            </div>
-            <div class="description-div">
-                <textarea asp-for="Description" class="description" cols="30" rows="10">@Model.Description</textarea>
-            </div>
-            <div class="shortdes-div">
-                <textarea asp-for="ShortDescription" class="shortdes-area" cols="30" rows="5">@Model.ShortDescription</textarea>
-            </div>
-            <div class="submit-btn">
-                <button class="submit" type="submit">
-                    Submit
-                </button>
-            </div>
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="ImageName" value="@Model.ImageName" />
+                <input type="hidden" asp-for="MyArticle" value="@Model.MyArticle" />
+                <div class="image-div">
+                    <img src="/img/articleData/image/@Model.ImageName" class="article-img">
+                </div>
+                <div class="title-div">
+                    <input asp-for="Title" class="title-article" value="@Model.Title">
+                </div>
+                <div class="image-change-div">
+                    <input asp-for="AltImage" type="file" class="image-input">
+                </div>
+                <div class="description-div">
+                    <textarea asp-for="Description" class="description" cols="30" rows="10">@Model.Description</textarea>
+                </div>
+                <div class="shortdes-div">
+                    <textarea asp-for="ShortDescription" class="shortdes-area" cols="30" rows="5">@Model.ShortDescription</textarea>
+                </div>
+                <div class="submit-btn">
+                    <button class="submit" type="submit">
+                        Submit
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+
+
+    <!-- Sweet Alert Section -->
+    <div>
+        <input type="hidden" id="message1" value="@TempData["success"]" />
+        <input type="hidden" id="message2" value="@TempData["error"]" />
+        <input type="hidden" id="message3" value="@TempData["warning"]" />
+        <input type="hidden" id="message4" value="@TempData["info"]" />
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <partial name="_SideMessage" />
+
 </body>
 </html>

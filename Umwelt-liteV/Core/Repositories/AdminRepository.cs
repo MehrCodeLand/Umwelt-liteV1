@@ -334,7 +334,6 @@ namespace Umwelt_liteV.Core.Repositories
 
             return baseFilterVm;
         }
-
         public ArticleEditVm FindArticleByMyArticleId(int myArticleId)
         {
             var article = _db.Articles.FirstOrDefault(u => u.MyArticleId == myArticleId);
@@ -354,7 +353,6 @@ namespace Umwelt_liteV.Core.Repositories
             return articleVm;
 
         }
-
         public MessageData ArticleEdit(ArticleEditVm articleEdit)
         {
             var message = new MessageData();
@@ -364,16 +362,58 @@ namespace Umwelt_liteV.Core.Repositories
 
 
             // ALT-IMAGE is change or not 
+            if(articleEdit.AltImage != null)
+            {
 
+                var myArticle= _db.Articles.FirstOrDefault(u => u.MyArticleId == articleEdit.MyArticle);
+
+                // delete old image 
+                DeleteOldImage(myArticle.ImageName);
+
+                var fileNameNew = CreateRandomName.CreateName();
+
+                myArticle.Title = articleEdit.Title;
+                myArticle.ShortDescriptions = articleEdit.ShortDescription;
+                myArticle.Descriptions = articleEdit.Description;
+                myArticle.ImageName = fileNameNew + articleEdit.AltImage.FileName;
+
+                SaveImageArticle(articleEdit.AltImage, myArticle.ImageName);
+
+                // update time 
+                UpdateArticle(myArticle);
+
+
+                message.SuccessId = 100;
+                message.Message = "Done";
+                return message;
+            }
 
 
             // time to update data
             var article = _db.Articles.FirstOrDefault(u => u.MyArticleId == articleEdit.MyArticle);
 
+            article.Title = articleEdit.Title;
+            article.ShortDescriptions = articleEdit.ShortDescription;
+            article.Descriptions = articleEdit.Description;
 
+            // update data
+            UpdateArticle(article);
+
+            message.SuccessId = 100;
+            message.Message = "Done";
             return message;
         }
+        private bool DeleteOldImage(string oldImageFileName)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/articleData/image");
+            if (Directory.Exists(path))
+            {
+                File.Delete(path + $"/{oldImageFileName}");
+            }
 
+            return true;
+
+        }
         private MessageData ValidateEditArticle(ArticleEditVm articleEdit)
         {
             var message = new MessageData();
@@ -382,13 +422,6 @@ namespace Umwelt_liteV.Core.Repositories
             {
                 message.ErrorId = -100;
                 message.Message = "The Data Is Not Found";
-
-                return message;
-            }
-            else if (articleEdit.ImageName == null)
-            {
-                message.ErrorId = -110;
-                message.Message = "Somthings Wrong";
 
                 return message;
             }
@@ -423,7 +456,7 @@ namespace Umwelt_liteV.Core.Repositories
             }
             if(articleEdit.AltImage != null)
             {
-                if(articleEdit.AltImage.Length < 2097152)
+                if(articleEdit.AltImage.Length > 2097152)
                 {
                     message.ErrorId = -400;
                     message.Message = "The alt image is to large";
