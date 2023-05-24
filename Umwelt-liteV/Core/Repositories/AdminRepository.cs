@@ -292,7 +292,22 @@ namespace Umwelt_liteV.Core.Repositories
         {
             _db.SaveChanges();
         }
+        private bool DeleteArticle(Article article)
+        {
+            var imageName = article.ImageName;
+            _db.Articles.Remove(article);
+            Save();
 
+            //delete Image
+            DeleteOldImage(imageName);
+
+            // is delete ?
+            return IsDeleteArticle(article.MyArticleId);
+        }
+        private bool IsDeleteArticle(int myID)
+        {
+            return _db.Articles.Any(u => u.MyArticleId == myID);
+        }
         #endregion
 
         #region Show Article And Edit
@@ -471,16 +486,68 @@ namespace Umwelt_liteV.Core.Repositories
             message.Message = "Done";
             return message;
         }
+
+        public DeleteArticleVm FindArticleByMyId(int id)
+        {
+            var article = _db.Articles.FirstOrDefault(u => u.MyArticleId == id);
+            if (article == null)
+                return null;
+
+            var deleteArticle = new DeleteArticleVm()
+            {
+                Title = article.Title,
+                Description = article.Descriptions,
+                ImageName = article.ImageName,
+                MyArticleId = article.MyArticleId,
+            };
+
+            return deleteArticle;
+
+        }
+
+        public MessageData ArticleDelete(DeleteArticleVm deleteArticle)
+        {
+            var message = ValidationDeleteArticle(deleteArticle);
+
+            if (message.ErrorId < 0)
+                return message;
+
+            // time to delete Article
+            var article = _db.Articles.FirstOrDefault(u => u.MyArticleId == deleteArticle.MyArticleId);
+
+            var result = DeleteArticle(article);
+            if(result == false)
+            {
+                message.ErrorId = -200;
+                message.Message = "We cant delete Article Now";
+
+                return message;
+            }
+
+            message.Message = "Done";
+            message.SuccessId = 100;
+
+            return message;
+        }
+        private MessageData ValidationDeleteArticle(DeleteArticleVm deleteArticle)
+        {
+            var message = new MessageData();
+
+            if(deleteArticle.MyArticleId == 0 || deleteArticle.MyArticleId == null)
+            {
+                message.ErrorId = -100;
+                message.Message = "Somthings Wrong\n" +
+                    "we can delete Article Now!";
+
+                return message;
+            }
+
+
+            message.SuccessId = 100;
+            message.Message = "done";
+            return message;
+        }
     }
-
-    //var regex = new Regex("^[a-zA-Z]");
-    //        if (!regex.IsMatch(articleVm.Title))
-    //        {
-    //            message.ErrorId = -130;
-    //            message.Message = "Title has not number!";
-
-    //            return message;
-    //        }
     #endregion
 }
 

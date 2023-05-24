@@ -107,5 +107,31 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
             return RedirectToAction("Main");
         }
 
+        [Route("DeleteArticle")]
+        public IActionResult DeleteArticle(int id)
+        {
+            var deleteArticle = _admin.FindArticleByMyId(id);
+            if (deleteArticle == null)
+                return RedirectToAction("Main");
+
+
+            return View(deleteArticle);
+        }
+
+        [Route("DeleteArticle")]
+        [HttpPost]
+        public IActionResult DeleteArticle(DeleteArticleVm deleteArticle)
+        {
+            var message = _admin.ArticleDelete(deleteArticle);
+            if(message.ErrorId < 0)
+            {
+                TempData["error"] = message.Message.ToString();
+                return RedirectToAction("ArticleList");
+            }
+
+            TempData["succsess"] = message.Message.ToString();
+            return RedirectToAction("Main");
+        }
+
     }
 }

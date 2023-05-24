@@ -13,5 +13,7 @@ namespace Umwelt_liteV.Core.Services
         BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex, string itemSearch);
         ArticleEditVm FindArticleByMyArticleId(int myArticleId);
         MessageData ArticleEdit(ArticleEditVm articleEdit);
+        DeleteArticleVm FindArticleByMyId(int id);
+        MessageData ArticleDelete(DeleteArticleVm deleteArticle);
     }
 }

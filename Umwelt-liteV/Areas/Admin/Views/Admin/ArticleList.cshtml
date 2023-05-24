@@ -119,5 +119,17 @@
             )
         </script>
     }
+
+
+        <!-- Sweet Alert Section -->
+        <div>
+            <input type="hidden" id="message1" value="@TempData["success"]" />
+            <input type="hidden" id="message2" value="@TempData["error"]" />
+            <input type="hidden" id="message3" value="@TempData["warning"]" />
+            <input type="hidden" id="message4" value="@TempData["info"]" />
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <partial name="_SideMessage" />
 </body>
 </html>
