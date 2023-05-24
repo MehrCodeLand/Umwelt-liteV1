@@ -107,6 +107,7 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
             return RedirectToAction("Main");
         }
 
+
         [Route("DeleteArticle")]
         public IActionResult DeleteArticle(int id)
         {
@@ -129,7 +130,7 @@ namespace Umwelt_liteV.Areas.Admin.Controllers
                 return RedirectToAction("ArticleList");
             }
 
-            TempData["succsess"] = message.Message.ToString();
+            TempData["success"] = message.Message.ToString();
             return RedirectToAction("Main");
         }
 

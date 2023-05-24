@@ -306,7 +306,11 @@ namespace Umwelt_liteV.Core.Repositories
         }
         private bool IsDeleteArticle(int myID)
         {
-            return _db.Articles.Any(u => u.MyArticleId == myID);
+            var result =  _db.Articles.Any(u => u.MyArticleId == myID);
+            if (result)
+                return false;
+
+            return true;
         }
         #endregion
 

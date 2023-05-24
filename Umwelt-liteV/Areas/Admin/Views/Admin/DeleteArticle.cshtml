@@ -1,15 +1,48 @@
-﻿
+﻿@using Umwelt_liteV.Data.Models.ViewModels
+@model DeleteArticleVm
+
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>DeleteArticle</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/AdminPages/DeleteArticle.css">
+    <title>Delete @Model.Title</title>
 </head>
 <body>
+    <div class="header-div">
+        <div class="h-left">
+            <p class="title">Umwelt-Admin</p>
+        </div>
+        <div class="h-right">
+            <p class="username">Mehrshad</p>
+        </div>
+    </div>
+
+    <div class="main-div">
+        <div class="form-div">
+            <form class="my-form" method="post" enctype="multipart/form-data">
+                <input asp-for="MyArticleId" type="hidden" class="myid" value="@Model.MyArticleId">
+                <div class="image-div">
+                    <img class="image" src="/img/articleData/image/@Model.ImageName">
+                </div>
+                <div class="title-div">
+                    <p class="title-article">@Model.Title</p>
+                </div>
+                <div class="desc-div">
+                    <textarea class="description-area" cols="30" rows="10">@Model.Description</textarea>
+                </div>
+                <div class="submit-div">
+                    <button type="submit" class="submit-btn">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
