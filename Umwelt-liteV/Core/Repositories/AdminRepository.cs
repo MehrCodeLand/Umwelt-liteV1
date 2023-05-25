@@ -318,7 +318,7 @@ namespace Umwelt_liteV.Core.Repositories
 
         // ArticleListVm --> Our Data Article
         // BaseFilterVm --> Pagging and Articles
-        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex, string ItemSearch)
+        public BaseFilterVm<ArticleListVm> GetAllUserForAdmin(int pageIndex, string itemSearch)
         {
             // get all articles
             var articleList = _db.Articles.OrderByDescending(u => u.Created).ToList();
@@ -330,6 +330,12 @@ namespace Umwelt_liteV.Core.Repositories
             // for pagging
             var pager = PagingHelper.Pager(pageIndex, articleList.Count, take, howManyPageShow);
 
+
+            // search part 
+            if(itemSearch != null)
+            {
+                articleList = articleList.Where(u => u.Title.Contains(itemSearch)).ToList();
+            }
             // interesting part
             var result = articleList.Select(x => new ArticleListVm
             {
