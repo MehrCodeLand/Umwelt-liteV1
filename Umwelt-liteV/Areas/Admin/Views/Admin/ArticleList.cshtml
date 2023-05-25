@@ -29,13 +29,16 @@
     <div class="main-div">
         <div class="card">
             <div class="card-head">
-                <form method="get" asp-action="ArticleList" id="formFilter">
+                <form method="get" class="form-search" asp-action="ArticleList" id="formFilter">
                     <input hidden value="@Model.PageIndex" id="pageId">
                     <div class="search-div">
                         <label>
                             Search:
                             <input name="search" type="search" class="search-input">
                         </label>
+                    </div>
+                    <div class="search-sub">
+                        <button class="submit-search" type="submit">Search</button>
                     </div>
                 </form>
             </div>
