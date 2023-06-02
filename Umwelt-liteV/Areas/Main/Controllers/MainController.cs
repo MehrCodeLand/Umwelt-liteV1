@@ -2,11 +2,11 @@
 
 namespace Umwelt_liteV.Areas.Main.Controllers
 {
+    [Area(nameof(Main))]
     public class MainController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Home() => View();
+
+
     }
 }
